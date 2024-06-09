@@ -1,0 +1,31 @@
+package com.alonso.abm.dao;
+
+import com.alonso.abm.domain.player.Player;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class PlayerInMemoryDAO implements BasicDAO<Player> {
+
+    private static Long nextId = 0L;
+    private List<Player> players = new ArrayList<>();
+
+    @Override
+    public Player save(Player player) {
+        player.setId(nextId++);
+        this.players.add(player);
+        return player;
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.players.remove(id);
+    }
+
+    @Override
+    public List<Player> getAll() {
+        return this.players;
+    }
+}
