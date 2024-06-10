@@ -1,5 +1,8 @@
 package com.alonso.abm.domain.player;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Player {
 
     private Long id;
@@ -7,6 +10,7 @@ public class Player {
     private String lastName;
     private String email;
     private String nickName;
+    private LocalDate dateOfBirth;
 
     public Long getId() {
         return id;

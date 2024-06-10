@@ -20,4 +20,19 @@ public class PlayerService {
     public List<Player> getAll(){
         return this.dao.getAll();
     }
+
+    public boolean delete(Long id){
+        Player player = getById(id);
+        if(player != null){
+            this.dao.delete(id);
+            return true;
+        }
+
+        return false;
+    }
+
+    public Player getById(Long id){
+
+        return this.dao.getById(id);
+    }
 }

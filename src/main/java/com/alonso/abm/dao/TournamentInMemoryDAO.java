@@ -4,17 +4,18 @@ import com.alonso.abm.domain.tournament.Tournament;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
 public class TournamentInMemoryDAO implements  BasicDAO<Tournament> {
 
     private static Long nextId = 0L;
-    private List<Tournament> tournaments = new ArrayList<Tournament>();
+    private final HashMap<Long, Tournament> tournaments = new HashMap<Long, Tournament>();
     @Override
     public Tournament save(Tournament t) {
         t.setId(nextId++);
-        this.tournaments.add(t);
+        this.tournaments.put(t.getId(), t);
         return t;
     }
 
@@ -25,6 +26,11 @@ public class TournamentInMemoryDAO implements  BasicDAO<Tournament> {
 
     @Override
     public List<Tournament> getAll() {
-        return this.tournaments;
+        return this.tournaments.values().stream().toList();
+    }
+
+    @Override
+    public Tournament getById(Long id) {
+        return this.tournaments.get(id);
     }
 }

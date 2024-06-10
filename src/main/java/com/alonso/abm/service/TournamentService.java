@@ -22,4 +22,18 @@ public class TournamentService {
         return this.dao.getAll();
     }
 
+    public Tournament getById(Long id){
+        return this.dao.getById(id);
+    }
+
+    public boolean delete(Long id){
+        Tournament tournament = getById(id);
+
+        if(tournament != null){
+            this.dao.delete(id);
+            return true;
+        }
+
+        return false;
+    }
 }

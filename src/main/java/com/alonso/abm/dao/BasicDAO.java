@@ -13,5 +13,7 @@ public interface BasicDAO<T> {
 
     public List<T> getAll();
 
+    public T getById(Long id);
+
 
 }
