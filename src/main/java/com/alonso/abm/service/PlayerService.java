@@ -32,7 +32,6 @@ public class PlayerService {
     }
 
     public Player getById(Long id){
-
         return this.dao.getById(id);
     }
 }

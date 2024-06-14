@@ -1,4 +1,4 @@
-package com.alonso.abm.domain;
+package com.alonso.abm.domain.match;
 
 public enum MatchMode {
     SOLO,

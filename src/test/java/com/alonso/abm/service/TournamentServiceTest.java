@@ -20,8 +20,8 @@ public class TournamentServiceTest {
 
     @Autowired
     private TournamentService service;
-
     private Tournament sample;
+
     @BeforeEach
     public void setup(){
         sample = new Tournament();
@@ -32,11 +32,15 @@ public class TournamentServiceTest {
 
     @Test
     public void testSaveSuccess(){
+
         Tournament tournament = new Tournament();
         tournament.setName("First Tournament");
+        tournament.setStartDay(LocalDateTime.now());
         Tournament save = service.save(tournament);
 
-        assertEquals(1, save.getId());
+        assertEquals(tournament.getName(), save.getName());
+        assertEquals(tournament.getStartDay(), save.getStartDay());
+
     }
     
     @Test
@@ -52,6 +56,12 @@ public class TournamentServiceTest {
         assertEquals(sample.getId(), t.getId());
         assertEquals(sample.getName(), t.getName());
         assertEquals(sample.getStartDay(), t.getStartDay());
+    }
+
+    @Test
+    public void testGetByIdNotFound(){
+        Tournament tournament = this.service.getById(99L);
+        assertNull(tournament);
     }
 
     @Test

@@ -1,14 +1,11 @@
 package com.alonso.abm.service;
 
 import com.alonso.abm.domain.player.Player;
-import com.alonso.abm.service.PlayerService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import java.util.List;
 
@@ -38,9 +35,14 @@ public class PlayerServiceTest {
         Player player = new Player();
         player.setFirstName("Hinata");
         player.setLastName("Shoyo");
+        player.setNickName("Little Giant");
+        player.setEmail("hinata.shoyo@karasuno.com");
 
         Player savedPlayer = this.service.save(player);
-        assertEquals(1L, savedPlayer.getId());
+        assertEquals(player.getFirstName(), savedPlayer.getFirstName());
+        assertEquals(player.getLastName(), savedPlayer.getLastName());
+        assertEquals(player.getNickName(), savedPlayer.getNickName());
+        assertEquals(player.getEmail(), savedPlayer.getEmail());
     }
 
     @Test
@@ -56,6 +58,13 @@ public class PlayerServiceTest {
         assertEquals(testPlayer.getFirstName(), playerDb.getFirstName());
         assertEquals(testPlayer.getLastName(), playerDb.getLastName());
     }
+
+    @Test
+    public void testGetByIdNotFound(){
+        Player player = this.service.getById(99L);
+        assertNull(player);
+    }
+
     @Test
     public void testDeleteTrue(){
         Player player = new Player();
@@ -67,7 +76,6 @@ public class PlayerServiceTest {
 
     @Test
     public void testDeleteFalse(){
-
         boolean isDeleted = this.service.delete(99L);
         assertFalse(isDeleted);
     }
