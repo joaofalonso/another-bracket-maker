@@ -1,15 +1,21 @@
 package com.alonso.abm.domain;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.alonso.abm.domain.match.Match;
+import com.alonso.abm.domain.player.Player;
+
+import java.util.*;
 
 public class Bracket {
     Long id;
-    Set<Round> rounds;
+    List<Round> rounds;
 
-    public Bracket(){
-        this.rounds = new HashSet<Round>();
+    private Round currentRound;
+    public Bracket(Set<Player> players){
+        this.rounds = new ArrayList<>();
+    }
+
+    public void createRound(){
+
     }
 
 }

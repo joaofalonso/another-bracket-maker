@@ -21,6 +21,9 @@ public class Tournament {
         this.playersEnrolled = new HashSet<>();
     }
 
+    public void initiate(){
+        this.bracket = new Bracket(this.playersEnrolled);
+    }
 
     public Long getId() {
         return id;
