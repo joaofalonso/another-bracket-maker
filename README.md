@@ -6,3 +6,4 @@ Tournament Manager Rest API to be used as sample to apply some Architetures.
 Match factory idea
 ![image](https://github.com/joaofalonso/another-bracket-maker/assets/113630640/c4414d64-2bb1-49b6-b470-c6d94c1f07a0)
 
+![image](https://github.com/joaofalonso/another-bracket-maker/assets/113630640/d4a2146e-b167-4784-a669-4c42bbe4fc76)
