@@ -1,5 +1,6 @@
 package com.alonso.abm.service;
 
+import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.Tournament;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,8 @@ public class TournamentServiceTest {
     private TournamentService service;
     private Tournament sample;
 
+    @Autowired
+    private PlayerService playerService;
     @BeforeEach
     public void setup(){
         sample = new Tournament();
@@ -79,4 +82,6 @@ public class TournamentServiceTest {
         boolean isDeleted = this.service.delete(9999999L);
         assertFalse(isDeleted);
     }
+
+
 }

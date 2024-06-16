@@ -5,5 +5,4 @@ public class Game {
     Long id;
     String name;
 
-    MatchMode matchMode;
 }

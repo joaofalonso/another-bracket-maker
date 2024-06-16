@@ -2,11 +2,16 @@ package com.alonso.abm.service;
 
 import com.alonso.abm.dao.BasicDAO;
 import com.alonso.abm.dao.TournamentInMemoryDAO;
+import com.alonso.abm.domain.match.Match;
+import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.Tournament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
+import java.util.stream.Collectors;
 
 @Service
 public class TournamentService {
@@ -35,5 +40,18 @@ public class TournamentService {
         }
 
         return false;
+    }
+    public void pairPlayers(Tournament tournament) {
+
+        Stack<Player> playersStack = new Stack<>();
+        List<Player> players = tournament.getPlayersEnrolled().stream().collect(Collectors.toList());
+        Collections.shuffle(players);
+        playersStack.addAll(players);
+
+        while (!playersStack.isEmpty())
+        {
+            tournament.addMatch(new Match(playersStack.pop(), playersStack.pop()));
+        }
+
     }
 }

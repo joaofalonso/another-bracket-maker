@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -66,6 +65,23 @@ public class EnrollServiceTest {
         assertThrows(RuntimeException.class,
                 () -> this.enrollService.enrollment(player.getId(), invalidId),
                 "Tournament not found by id " + Long.toString(invalidId));
+    }
+
+    @Test
+    public void testPairPlayersSuccess(){
+
+        Tournament tournamentDb = this.tournamentService.getById(tournament.getId());
+
+        int playerCount = 0;
+        while (playerCount < 8){
+            Player savedPlayer = this.playerService.save(new Player());
+            this.enrollService.enrollment(tournamentDb.getId(), savedPlayer.getId());
+            playerCount++;
+        }
+
+        this.tournamentService.pairPlayers(tournamentDb);
+
+        assertEquals(4, tournament.getMatches().size());
     }
 
 }

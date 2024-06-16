@@ -1,11 +1,13 @@
 package com.alonso.abm.domain.tournament;
 
 
-import com.alonso.abm.domain.Bracket;
+import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.player.Player;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Tournament {
@@ -15,14 +17,11 @@ public class Tournament {
     private LocalDateTime startDay;
     private LocalDateTime finalDay;
     private final Set<Player> playersEnrolled;
-    private Bracket bracket;
+    private List<Match> matches;
 
     public Tournament(){
         this.playersEnrolled = new HashSet<>();
-    }
-
-    public void initiate(){
-        this.bracket = new Bracket(this.playersEnrolled);
+        this.matches = new ArrayList<Match>();
     }
 
     public Long getId() {
@@ -61,11 +60,15 @@ public class Tournament {
         return playersEnrolled;
     }
 
-    public Bracket getBracket() {
-        return bracket;
+    public List<Match> getMatches() {
+        return matches;
     }
 
-    public void setBracket(Bracket bracket) {
-        this.bracket = bracket;
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
+
+    public void addMatch(Match match) {
+        this.matches.add(match);
     }
 }
