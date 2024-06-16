@@ -19,6 +19,9 @@ public class TournamentService {
     @Autowired
     private BasicDAO<Tournament> dao;
 
+    @Autowired
+    private MatchService matchService;
+
     public Tournament save(Tournament tournament){
         return this.dao.save(tournament);
     }
@@ -50,7 +53,9 @@ public class TournamentService {
 
         while (!playersStack.isEmpty())
         {
-            tournament.addMatch(new Match(playersStack.pop(), playersStack.pop()));
+            Match match = new Match(playersStack.pop(), playersStack.pop());
+            match = matchService.save(match);
+            tournament.addMatch(match);
         }
 
     }

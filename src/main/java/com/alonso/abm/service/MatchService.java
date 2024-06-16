@@ -10,8 +10,12 @@ public class MatchService {
 
     @Autowired
     private BasicDAO<Match> matchRepostiroy;
+
     public void receiveReport(MatchStands matchStands) throws Exception {
+
         Match match = this.matchRepostiroy.getById(matchStands.getMatchId());
+        if(match == null)
+            throw  new Exception("Match not found!");
 
         if(!matchStands.getPlayerId().equals(match.getPlayer1().getId())
                 || !matchStands.getPlayerId().equals(match.getPlayer2().getId()))
@@ -19,5 +23,12 @@ public class MatchService {
 
     }
 
+    public Match getById(Long id){
+        return this.matchRepostiroy.getById(id);
+    }
+
+    public Match save(Match match) {
+        return this.matchRepostiroy.save(match);
+    }
 
 }
