@@ -4,6 +4,7 @@ import com.alonso.abm.dao.BasicDAO;
 import com.alonso.abm.dao.TournamentInMemoryDAO;
 import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.player.Player;
+import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,10 @@ public class TournamentService {
     @Autowired
     private MatchService matchService;
 
-    public Tournament save(Tournament tournament){
+    public Tournament save(CreateTournament createTournament){
+        Tournament tournament = new Tournament();
+        tournament.setName(createTournament.name());
+        tournament.setStartDay(createTournament.startDate());
         return this.dao.save(tournament);
     }
 

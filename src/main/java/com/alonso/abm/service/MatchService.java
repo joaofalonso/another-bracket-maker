@@ -1,19 +1,21 @@
 package com.alonso.abm.service;
 
 import com.alonso.abm.dao.BasicDAO;
-import com.alonso.abm.dao.MatchRepostiroy;
+import com.alonso.abm.dao.MatchRepository;
 import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.match.MatchStands;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MatchService {
 
     @Autowired
-    private BasicDAO<Match> matchRepostiroy;
+    private BasicDAO<Match> matchRepository;
 
     public void receiveReport(MatchStands matchStands) throws Exception {
 
-        Match match = this.matchRepostiroy.getById(matchStands.getMatchId());
+        Match match = this.matchRepository.getById(matchStands.getMatchId());
         if(match == null)
             throw  new Exception("Match not found!");
 
@@ -24,11 +26,11 @@ public class MatchService {
     }
 
     public Match getById(Long id){
-        return this.matchRepostiroy.getById(id);
+        return this.matchRepository.getById(id);
     }
 
     public Match save(Match match) {
-        return this.matchRepostiroy.save(match);
+        return this.matchRepository.save(match);
     }
 
 }

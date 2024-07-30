@@ -12,6 +12,7 @@ public class Player {
     private String nickName;
     private LocalDate dateOfBirth;
 
+
     public Long getId() {
         return id;
     }
@@ -50,6 +51,13 @@ public class Player {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     @Override

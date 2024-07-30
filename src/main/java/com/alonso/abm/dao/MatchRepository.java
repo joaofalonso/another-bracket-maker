@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class MatchRepostiroy implements  BasicDAO<Match> {
+public class MatchRepository implements  BasicDAO<Match> {
 
     private static Long nextId = 0L;
     private final HashMap<Long, Match> matches = new HashMap<Long, Match>();
