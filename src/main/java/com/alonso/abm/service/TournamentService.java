@@ -6,6 +6,7 @@ import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
+import com.alonso.abm.domain.tournament.TournamentBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,10 @@ public class TournamentService {
     private MatchService matchService;
 
     public Tournament save(CreateTournament createTournament){
-        Tournament tournament = new Tournament();
-        tournament.setName(createTournament.name());
-        tournament.setStartDay(createTournament.startDate());
+        Tournament tournament = new TournamentBuilder().Name(createTournament.name())
+                .startDate(createTournament.startDate())
+                .finalDate(createTournament.finalDate())
+                .build();
         return this.dao.save(tournament);
     }
 

@@ -1,6 +1,7 @@
 package com.alonso.abm.service;
 
 import com.alonso.abm.domain.player.Player;
+import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,22 +28,17 @@ public class TournamentServiceTest {
     private PlayerService playerService;
     @BeforeEach
     public void setup(){
-        sample = new Tournament();
-        sample.setName("Ove 2024");
-        sample.setStartDay(LocalDateTime.now());
-        this.service.save(sample);
+        this.sample = this.service.save(new CreateTournament("Ove 2024", LocalDateTime.now()));
     }
 
     @Test
     public void testSaveSuccess(){
 
-        Tournament tournament = new Tournament();
-        tournament.setName("First Tournament");
-        tournament.setStartDay(LocalDateTime.now());
-        Tournament save = service.save(tournament);
+        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now());
+        Tournament save = service.save(createTournament);
 
-        assertEquals(tournament.getName(), save.getName());
-        assertEquals(tournament.getStartDay(), save.getStartDay());
+        assertEquals(createTournament.name(), save.getName());
+        assertEquals(createTournament.startDate(), save.getStartDay());
 
     }
     
@@ -69,8 +65,8 @@ public class TournamentServiceTest {
 
     @Test
     public void testDeleteTrue(){
-        Tournament tournament = new Tournament();
-        Tournament tournamentToDelete = this.service.save(tournament);
+
+        Tournament tournamentToDelete = this.service.save(new CreateTournament("2nd Tournament", LocalDateTime.now()));
 
         boolean isDeleted = this.service.delete(tournamentToDelete.getId());
 

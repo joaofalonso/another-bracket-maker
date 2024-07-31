@@ -1,6 +1,7 @@
 package com.alonso.abm.service;
 
 import com.alonso.abm.domain.player.Player;
+import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +39,7 @@ public class EnrollServiceTest {
         player = this.playerService.save(player);
 
         tournament = new Tournament();
-        tournament = this.tournamentService.save(tournament);
+        tournament = this.tournamentService.save(new CreateTournament("Ove 2024", LocalDateTime.now()));
     }
     @Test
     public void testEnrollmentSuccess(){
