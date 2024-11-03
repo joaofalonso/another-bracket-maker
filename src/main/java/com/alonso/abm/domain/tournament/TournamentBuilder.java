@@ -10,6 +10,7 @@ public class TournamentBuilder {
     public TournamentBuilder Name(String name) {
         if(name == null || name.isEmpty())
             throw new InvalidParameterException("Invalid name!");
+        this.name = name;
         return this;
     }
 
@@ -22,7 +23,7 @@ public class TournamentBuilder {
 
     public TournamentBuilder finalDate(LocalDateTime finalDate) {
         if(finalDate.isBefore(this.startDate) || finalDate.equals(this.startDate))
-            throw new InvalidParameterException("Invalid start date!");
+            throw new InvalidParameterException("Invalid final date!");
         this.finalDate = finalDate;
         return this;
     }

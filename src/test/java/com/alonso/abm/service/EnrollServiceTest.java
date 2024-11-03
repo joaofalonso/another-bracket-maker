@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +40,7 @@ public class EnrollServiceTest {
         player = this.playerService.save(player);
 
         tournament = new Tournament();
-        tournament = this.tournamentService.save(new CreateTournament("Ove 2024", LocalDateTime.now()));
+        tournament = this.tournamentService.save(new CreateTournament("Ove 2024", LocalDateTime.now(), LocalDateTime.now().plusDays(3)));
     }
     @Test
     public void testEnrollmentSuccess(){

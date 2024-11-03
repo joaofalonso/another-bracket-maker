@@ -28,13 +28,13 @@ public class TournamentServiceTest {
     private PlayerService playerService;
     @BeforeEach
     public void setup(){
-        this.sample = this.service.save(new CreateTournament("Ove 2024", LocalDateTime.now()));
+        this.sample = this.service.save(new CreateTournament("Ove 2024", LocalDateTime.now(), LocalDateTime.now().plusDays(2)));
     }
 
     @Test
     public void testSaveSuccess(){
 
-        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now());
+        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         Tournament save = service.save(createTournament);
 
         assertEquals(createTournament.name(), save.getName());
@@ -66,7 +66,7 @@ public class TournamentServiceTest {
     @Test
     public void testDeleteTrue(){
 
-        Tournament tournamentToDelete = this.service.save(new CreateTournament("2nd Tournament", LocalDateTime.now()));
+        Tournament tournamentToDelete = this.service.save(new CreateTournament("2nd Tournament", LocalDateTime.now(),LocalDateTime.now().plusDays(2)));
 
         boolean isDeleted = this.service.delete(tournamentToDelete.getId());
 
