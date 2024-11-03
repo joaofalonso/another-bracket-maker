@@ -1,5 +1,6 @@
 package com.alonso.abm.service;
 
+import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalUnit;
 
@@ -36,8 +38,12 @@ public class EnrollServiceTest {
 
     @BeforeEach
     public void setup(){
-        player = new Player();
-        player = this.playerService.save(player);
+        player = playerService.save(new CreatePlayer("Jhon",
+                "Doe",
+                "joe@doe.who",
+                "who",
+                LocalDate.now().minusYears(20)
+        ));
 
         tournament = new Tournament();
         tournament = this.tournamentService.save(new CreateTournament("Ove 2024", LocalDateTime.now(), LocalDateTime.now().plusDays(3)));
@@ -78,7 +84,12 @@ public class EnrollServiceTest {
 
         int playerCount = 0;
         while (playerCount < 8){
-            Player savedPlayer = this.playerService.save(new Player());
+            Player savedPlayer = this.playerService.save(new CreatePlayer("Jhon",
+                    "Doe",
+                    "joe@doe.who",
+                    "who",
+                    LocalDate.now().minusYears(20))
+            );
             this.enrollService.enrollment(tournamentDb.getId(), savedPlayer.getId());
             playerCount++;
         }

@@ -1,5 +1,6 @@
 package com.alonso.abm.service;
 
+import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,26 +25,32 @@ public class PlayerServiceTest {
     @BeforeEach
     public void setup()
     {
-        testPlayer = new Player();
-        testPlayer.setNickName("Jhon Doe");
-        testPlayer.setLastName("dur");
-        service.save(testPlayer);
+
+        testPlayer= service.save(new CreatePlayer("Jhon",
+                "Doe",
+                "joe@doe.who",
+                "who",
+                LocalDate.now().minusYears(20)
+        ));
+
     }
 
 
     @Test
     public void testSaveSuccess(){
-        Player player = new Player();
-        player.setFirstName("Hinata");
-        player.setLastName("Shoyo");
-        player.setNickName("Little Giant");
-        player.setEmail("hinata.shoyo@karasuno.com");
 
-        Player savedPlayer = this.service.save(player);
-        assertEquals(player.getFirstName(), savedPlayer.getFirstName());
-        assertEquals(player.getLastName(), savedPlayer.getLastName());
-        assertEquals(player.getNickName(), savedPlayer.getNickName());
-        assertEquals(player.getEmail(), savedPlayer.getEmail());
+        CreatePlayer hinata = new CreatePlayer("Hinata",
+                "Shoyo",
+                "hinata.shoyo@karasuno.com",
+                "Little Giant",
+                LocalDate.now().minusYears(16)
+        );
+
+        Player savedPlayer = this.service.save(hinata);
+        assertEquals(hinata.firstName(), savedPlayer.getFirstName());
+        assertEquals(hinata.lastName(), savedPlayer.getLastName());
+        assertEquals(hinata.nickName(), savedPlayer.getNickName());
+        assertEquals(hinata.email(), savedPlayer.getEmail());
     }
 
     @Test
@@ -67,8 +75,12 @@ public class PlayerServiceTest {
 
     @Test
     public void testDeleteTrue(){
-        Player player = new Player();
-        Player save = this.service.save(player);
+        Player save = this.service.save(new CreatePlayer("Jhon",
+                "Doe",
+                "joe@doe.who",
+                "who",
+                LocalDate.now().minusYears(20)
+        ));
 
         boolean isDeleted = this.service.delete(save.getId());
         assertTrue(isDeleted);
