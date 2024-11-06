@@ -31,6 +31,7 @@ public class TournamentBuilder {
     public Tournament build(){
         Tournament tournament = new Tournament();
         tournament.setName(name);
+        tournament.setState(TournamentState.OPEN);
         tournament.setStartDay(startDate);
         tournament.setFinalDay(finalDate);
         return tournament;

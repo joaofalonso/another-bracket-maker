@@ -17,11 +17,10 @@ public class Tournament {
     private LocalDateTime startDay;
     private LocalDateTime finalDay;
     private final Set<Player> playersEnrolled;
-    private List<Match> matches;
+    private TournamentState state;
 
     public Tournament(){
         this.playersEnrolled = new HashSet<>();
-        this.matches = new ArrayList<Match>();
     }
 
     public Long getId() {
@@ -60,15 +59,11 @@ public class Tournament {
         return playersEnrolled;
     }
 
-    public List<Match> getMatches() {
-        return matches;
+    public TournamentState getState() {
+        return state;
     }
 
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
-    }
-
-    public void addMatch(Match match) {
-        this.matches.add(match);
+    public void setState(TournamentState state) {
+        this.state = state;
     }
 }

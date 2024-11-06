@@ -7,7 +7,6 @@ public class MatchStands {
     private Long playerId;
     private Player winner;
     private Player looser;
-
     private Long matchId;
     public Long getPlayerId() {
         return playerId;

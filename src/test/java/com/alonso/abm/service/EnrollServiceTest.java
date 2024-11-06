@@ -4,6 +4,7 @@ import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
+import com.alonso.abm.domain.tournament.TournamentState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ public class EnrollServiceTest {
     private Player player;
 
     private Tournament tournament;
-
+    private Tournament closedTournament;
     @BeforeEach
     public void setup(){
         player = playerService.save(new CreatePlayer("Jhon",
@@ -45,8 +46,11 @@ public class EnrollServiceTest {
                 LocalDate.now().minusYears(20)
         ));
 
-        tournament = new Tournament();
+
         tournament = this.tournamentService.save(new CreateTournament("Ove 2024", LocalDateTime.now(), LocalDateTime.now().plusDays(3)));
+        tournament = new Tournament();
+        closedTournament = this.tournamentService.save(new CreateTournament("Ove 2023", LocalDateTime.now(), LocalDateTime.now().plusDays(3)));
+        closedTournament.setState(TournamentState.RUNNING);
     }
     @Test
     public void testEnrollmentSuccess(){
@@ -78,25 +82,10 @@ public class EnrollServiceTest {
     }
 
     @Test
-    public void testPairPlayersSuccess(){
-
-        Tournament tournamentDb = this.tournamentService.getById(tournament.getId());
-
-        int playerCount = 0;
-        while (playerCount < 8){
-            Player savedPlayer = this.playerService.save(new CreatePlayer("Jhon",
-                    "Doe",
-                    "joe@doe.who",
-                    "who",
-                    LocalDate.now().minusYears(20))
-            );
-            this.enrollService.enrollment(tournamentDb.getId(), savedPlayer.getId());
-            playerCount++;
-        }
-
-        this.tournamentService.pairPlayers(tournamentDb);
-
-        assertEquals(4, tournament.getMatches().size());
+    public void testEnrollmentFailTournamentNotOpen(){
+        assertThrows(RuntimeException.class,
+                () -> this.enrollService.enrollment(player.getId(), closedTournament.getId()),
+                " Enrollments to this tournament are closed!");
     }
 
 }

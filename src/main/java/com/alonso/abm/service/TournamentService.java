@@ -21,9 +21,6 @@ public class TournamentService {
     @Autowired
     private BasicDAO<Tournament> dao;
 
-    @Autowired
-    private MatchService matchService;
-
     public Tournament save(CreateTournament createTournament){
         Tournament tournament = new TournamentBuilder().Name(createTournament.name())
                 .startDate(createTournament.startDate())
@@ -50,19 +47,5 @@ public class TournamentService {
 
         return false;
     }
-    public void pairPlayers(Tournament tournament) {
 
-        Stack<Player> playersStack = new Stack<>();
-        List<Player> players = tournament.getPlayersEnrolled().stream().collect(Collectors.toList());
-        Collections.shuffle(players);
-        playersStack.addAll(players);
-
-        while (!playersStack.isEmpty())
-        {
-            Match match = new Match(playersStack.pop(), playersStack.pop());
-            match = matchService.save(match);
-            tournament.addMatch(match);
-        }
-
-    }
 }
