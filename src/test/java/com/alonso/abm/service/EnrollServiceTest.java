@@ -48,7 +48,7 @@ public class EnrollServiceTest {
 
 
         tournament = this.tournamentService.save(new CreateTournament("Ove 2024", LocalDateTime.now(), LocalDateTime.now().plusDays(3)));
-        tournament = new Tournament();
+
         closedTournament = this.tournamentService.save(new CreateTournament("Ove 2023", LocalDateTime.now(), LocalDateTime.now().plusDays(3)));
         closedTournament.setState(TournamentState.RUNNING);
     }

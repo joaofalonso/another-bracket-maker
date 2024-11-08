@@ -41,7 +41,22 @@ public class TournamentServiceTest {
         assertEquals(createTournament.startDate(), save.getStartDay());
 
     }
-    
+
+    @Test
+    public void testSaveTournamentInvalidName(){
+        //TODO: Test exception for invalid name
+    }
+
+    @Test
+    public void testSaveTournamentInvalidStartDate(){
+        //TODO: Test exception for invalid name
+    }
+
+    @Test
+    public void testSaveTournamentInvalidEndDate(){
+        //TODO: Test exception for invalid name
+    }
+
     @Test
     public void testGetAll(){
         List<Tournament> all = this.service.getAll();

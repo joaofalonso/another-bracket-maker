@@ -45,11 +45,11 @@ public class BracketServiceTest {
         evenPlayersTournament = tournamentService.save(new CreateTournament("Even Tournament", LocalDateTime.now(), LocalDateTime.now().plusDays(1)));
         oddPlayersTournament = tournamentService.save(new CreateTournament("Odd Tournament", LocalDateTime.now(), LocalDateTime.now().plusDays(1)));
         Player player1 = playerService.save(
-                new CreatePlayer("Dummy1", "Test","test@email","dummyPlayer", LocalDate.now().minusYears(2)));
+                new CreatePlayer("Dummy1", "Test","test@email.com","dummyPlayer", LocalDate.now().minusYears(2)));
         Player player2 = playerService.save(
-                new CreatePlayer("Dummy1", "Test","test@email","dummyPlayer", LocalDate.now().minusYears(2)));
+                new CreatePlayer("Dummy1", "Test","test@email.com","dummyPlayer", LocalDate.now().minusYears(2)));
         Player player3 = playerService.save(
-                new CreatePlayer("Dummy1", "Test","test@email","dummyPlayer", LocalDate.now().minusYears(2)));
+                new CreatePlayer("Dummy1", "Test","test@email.com","dummyPlayer", LocalDate.now().minusYears(2)));
 
         enrollService.enrollment(evenPlayersTournament.getId(), player1.getId());
         enrollService.enrollment(evenPlayersTournament.getId(), player2.getId());
@@ -60,7 +60,6 @@ public class BracketServiceTest {
     }
     @Test
     public void createEvenPlayersBracket() throws Exception {
-        //TODO: Succesfully create a even bracket
         HashSet<Match> bracket = this.bracketService.createBracket(evenPlayersTournament);
         List<Match> openMatchesList = bracket.stream().filter(m -> m.getMatchStands().isEmpty()).toList();
         Assertions.assertEquals(bracket.size(), openMatchesList.size());
@@ -80,7 +79,6 @@ public class BracketServiceTest {
 
     @Test
     public void createBracketNoPlayersError(){
-        //TODO: Error caused by no enrolled players
         Tournament noPlayers = new TournamentBuilder().Name("No players").build();
 
         assertThrows(RuntimeException.class,
@@ -90,7 +88,6 @@ public class BracketServiceTest {
 
     @Test
     public void createBracketNotOpenTournamentError(){
-        //TODO: Tournament object with state different from OPEN
         Tournament closedTournament = new TournamentBuilder().Name("No players").build();
         closedTournament.setState(TournamentState.RUNNING);
 

@@ -2,6 +2,7 @@ package com.alonso.abm.service;
 
 import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.player.Player;
+import com.alonso.abm.domain.player.PlayerBuilder;
 import com.alonso.abm.domain.tournament.Tournament;
 import com.alonso.abm.domain.tournament.TournamentState;
 import com.sun.source.tree.BinaryTree;
@@ -27,9 +28,22 @@ public class BracketService {
         Collections.shuffle(players);
         HashSet<Match> matches = new HashSet<>();
         while (players.peek() != null){
-            Match match = new Match(players.pop(), players.pop());
+            Player p1 = null;
+            Player p2 = null;
+            if(!players.isEmpty())
+                p1 = players.pop();
+            if(!players.isEmpty())
+                p2 = players.pop();
+
+            Match match = null;
+            if(p2 == null)
+                match = new Match(p1);
+
+            else
+                match = new Match(p1, p2);
             match.setTournamentId(tournament.getId());
             matches.add(match);
+
             if(players.isEmpty())
                 break;
         }

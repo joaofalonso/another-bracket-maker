@@ -30,6 +30,16 @@ public class Match {
         this.matchStands = new HashSet<MatchStands>();
     }
 
+    public Match(Player player1){
+        this.player1 = player1;
+        this.matchState = MatchState.CLOSED;
+        this.matchStands = new HashSet<MatchStands>();
+        MatchStands stand = new MatchStands();
+        stand.setWinner(this.player1);
+        stand.setPlayerId(this.player1.getId());
+        this.matchStands.add(stand);
+    }
+
     public Player getPlayer1() {
         return player1;
     }
