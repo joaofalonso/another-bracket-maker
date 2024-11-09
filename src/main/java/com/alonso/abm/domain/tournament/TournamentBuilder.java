@@ -15,7 +15,7 @@ public class TournamentBuilder {
     }
 
     public TournamentBuilder startDate(LocalDateTime startDate){
-        if(startDate.isAfter(LocalDateTime.now()))
+        if(startDate.isBefore(LocalDateTime.now()))
             throw new InvalidParameterException("Invalid start date!");
         this.startDate = startDate;
         return this;

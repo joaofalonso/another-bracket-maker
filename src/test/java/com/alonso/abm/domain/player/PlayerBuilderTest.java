@@ -72,6 +72,6 @@ public class PlayerBuilderTest {
     public void invalidDateOfBirth(){
         assertThrows(RuntimeException.class,
                 () -> this.builder.dateOfBirth(LocalDate.now().plusDays(1)),
-                "Invalid date of birht");
+                "Invalid date of birth");
     }
 }

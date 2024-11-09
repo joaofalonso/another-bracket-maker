@@ -28,13 +28,13 @@ public class TournamentServiceTest {
     private PlayerService playerService;
     @BeforeEach
     public void setup(){
-        this.sample = this.service.save(new CreateTournament("Ove 2024", LocalDateTime.now(), LocalDateTime.now().plusDays(2)));
+        this.sample = this.service.save(new CreateTournament("Ove 2024", LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2)));
     }
 
     @Test
     public void testSaveSuccess(){
 
-        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now(), LocalDateTime.now().plusDays(2));
+        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2));
         Tournament save = service.save(createTournament);
 
         assertEquals(createTournament.name(), save.getName());
@@ -44,17 +44,34 @@ public class TournamentServiceTest {
 
     @Test
     public void testSaveTournamentInvalidName(){
-        //TODO: Test exception for invalid name
+        CreateTournament createTournament = new CreateTournament("", LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2));
+        assertThrows(RuntimeException.class,
+                () ->  service.save(createTournament),
+                "Invalid name!");
     }
 
     @Test
     public void testSaveTournamentInvalidStartDate(){
-        //TODO: Test exception for invalid name
+        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(2));
+        assertThrows(RuntimeException.class,
+                () ->  service.save(createTournament),
+                "Invalid start date!");
     }
 
     @Test
-    public void testSaveTournamentInvalidEndDate(){
-        //TODO: Test exception for invalid name
+    public void testSaveTournamentInvalidEndDateEqualToStartDate(){
+        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now(), LocalDateTime.now());
+        assertThrows(RuntimeException.class,
+                () ->  service.save(createTournament),
+                "Invalid final date!");
+    }
+
+    @Test
+    public void testSaveTournamentInvalidEndDateBeforeToStartDate(){
+        CreateTournament createTournament = new CreateTournament("First Tournament", LocalDateTime.now(), LocalDateTime.now().minusDays(1));
+        assertThrows(RuntimeException.class,
+                () ->  service.save(createTournament),
+                "Invalid final date!");
     }
 
     @Test
