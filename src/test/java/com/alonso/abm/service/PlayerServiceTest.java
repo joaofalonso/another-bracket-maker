@@ -19,8 +19,6 @@ public class PlayerServiceTest {
 
     @Autowired
     private PlayerService service;
-
-
     private Player testPlayer;
     @BeforeEach
     public void setup()
@@ -34,6 +32,7 @@ public class PlayerServiceTest {
         ));
 
     }
+
 
 
     @Test
