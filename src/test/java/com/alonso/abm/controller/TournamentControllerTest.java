@@ -1,7 +1,9 @@
 package com.alonso.abm.controller;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
+@WebMvcTest(TournamentController.class)
 public class TournamentControllerTest {
 
     @Test

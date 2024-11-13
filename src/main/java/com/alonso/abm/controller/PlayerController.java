@@ -7,6 +7,7 @@ import com.alonso.abm.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,8 +33,8 @@ public class PlayerController {
     @PostMapping
     public ResponseEntity<?> createPlayer(@RequestBody CreatePlayer createPlayer){
         Player save = this.service.save(createPlayer);
-        //TODO: Implement URI Builder
-        return ResponseEntity.ok().body(save);
+        UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/player/" + save.getId()).build();
+        return ResponseEntity.created(uriComponents.toUri()).build();
     }
 
     @PutMapping
