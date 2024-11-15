@@ -20,6 +20,11 @@ public class TournamentInMemoryDAO implements  BasicDAO<Tournament> {
     }
 
     @Override
+    public void update(Tournament tournament) {
+        this.tournaments.put(tournament.getId(), tournament);
+    }
+
+    @Override
     public void delete(Long id) {
         this.tournaments.remove(id);
     }

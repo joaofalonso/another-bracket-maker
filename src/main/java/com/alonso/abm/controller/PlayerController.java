@@ -39,6 +39,9 @@ public class PlayerController {
 
     @PutMapping
     public ResponseEntity<?> updatePlayer(@RequestBody UpdatePlayer updatePlayer){
-        return ResponseEntity.ok().body(null);
+        this.service.updatePlayer(updatePlayer);
+        UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/player/" + updatePlayer.id()).build();
+        return ResponseEntity.ok().header("location", uriComponents.toUri().toString()).build();
     }
+
 }

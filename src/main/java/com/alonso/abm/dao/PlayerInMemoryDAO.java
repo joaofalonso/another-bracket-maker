@@ -21,6 +21,11 @@ public class PlayerInMemoryDAO implements BasicDAO<Player> {
     }
 
     @Override
+    public void update(Player player){
+        this.players.put(player.getId(), player);
+    }
+
+    @Override
     public void delete(Long id) {
         this.players.remove(id);
     }

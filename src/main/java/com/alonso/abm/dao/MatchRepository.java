@@ -21,6 +21,11 @@ public class MatchRepository implements  BasicDAO<Match> {
     }
 
     @Override
+    public void update(Match obj) {
+
+    }
+
+    @Override
     public void delete(Long id) {
         this.matches.remove(id);
     }

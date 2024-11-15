@@ -4,6 +4,7 @@ import com.alonso.abm.dao.BasicDAO;
 import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.player.PlayerBuilder;
+import com.alonso.abm.domain.player.UpdatePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,14 @@ public class PlayerService {
         }
 
         return false;
+    }
+
+    public boolean updatePlayer(UpdatePlayer updatePlayer){
+        Player playerDb = this.getById(updatePlayer.id());
+        if(playerDb == null)
+            throw new RuntimeException("Player not found!");
+
+        return true;
     }
 
     public Player getById(Long id){

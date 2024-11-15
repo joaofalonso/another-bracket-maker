@@ -9,6 +9,7 @@ public interface BasicDAO<T> {
 
     public T save(T obj);
 
+    public void update(T obj);
     public void delete(Long id);
 
     public List<T> getAll();

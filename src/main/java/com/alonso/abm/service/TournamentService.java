@@ -1,5 +1,6 @@
 package com.alonso.abm.service;
 
+import com.alonso.abm.controller.UpdateTournament;
 import com.alonso.abm.dao.BasicDAO;
 import com.alonso.abm.dao.TournamentInMemoryDAO;
 import com.alonso.abm.domain.match.Match;
@@ -48,4 +49,10 @@ public class TournamentService {
         return false;
     }
 
+    public boolean updateTournament(UpdateTournament updateTournament) {
+        Tournament tournamentDb = this.getById(updateTournament.id());
+        if(tournamentDb == null)
+            throw new RuntimeException("Tournament not found");
+        return true;
+    }
 }
