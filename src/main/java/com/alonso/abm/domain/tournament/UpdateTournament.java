@@ -1,4 +1,4 @@
-package com.alonso.abm.controller;
+package com.alonso.abm.domain.tournament;
 
 import com.alonso.abm.domain.tournament.TournamentState;
 

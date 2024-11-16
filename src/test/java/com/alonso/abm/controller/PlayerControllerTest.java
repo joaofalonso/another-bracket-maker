@@ -19,14 +19,11 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(PlayerController.class)
@@ -100,6 +97,15 @@ public class PlayerControllerTest {
                         .content(payload))
                 .andExpect(status().isOk())
                 .andExpect(header().stringValues("location","/player/1"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testDeleteResponse200() throws Exception {
+        when(this.playerService.delete(1L)).thenReturn(true);
+        this.mockMvc.perform(delete("/player/1")
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isNoContent());
     }
 
 }

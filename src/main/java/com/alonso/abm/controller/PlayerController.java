@@ -44,4 +44,10 @@ public class PlayerController {
         return ResponseEntity.ok().header("location", uriComponents.toUri().toString()).build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePlayer(@PathVariable long id){
+        this.service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

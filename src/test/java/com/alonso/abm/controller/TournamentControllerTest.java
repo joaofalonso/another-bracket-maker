@@ -1,11 +1,7 @@
 package com.alonso.abm.controller;
 
-import com.alonso.abm.domain.tournament.CreateTournament;
-import com.alonso.abm.domain.tournament.Tournament;
-import com.alonso.abm.domain.tournament.TournamentBuilder;
-import com.alonso.abm.domain.tournament.TournamentState;
+import com.alonso.abm.domain.tournament.*;
 import com.alonso.abm.service.TournamentService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,10 +14,8 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.nio.charset.StandardCharsets;
@@ -101,6 +95,14 @@ public class TournamentControllerTest {
                 .andExpect(header().stringValues("location","/tournament/1"));
 
 
+    }
+
+    @Test
+    @WithMockUser
+    public void testDeleteResponse204() throws Exception {
+        when(tournamentService.delete(1L)).thenReturn(true);
+        this.mockMvc.perform(delete("/tournament/1")
+                .with(SecurityMockMvcRequestPostProcessors.csrf())).andExpect(status().isNoContent());
     }
 
 }

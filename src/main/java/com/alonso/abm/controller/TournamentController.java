@@ -2,6 +2,7 @@ package com.alonso.abm.controller;
 
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
+import com.alonso.abm.domain.tournament.UpdateTournament;
 import com.alonso.abm.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class TournamentController {
         boolean b = this.service.updateTournament(updateTournament);
         UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/tournament/" + updateTournament.id()).build();
         return ResponseEntity.ok().header("location", uriComponents.toUri().toString()).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTournament(@PathVariable long id){
+        this.service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

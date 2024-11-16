@@ -1,20 +1,14 @@
 package com.alonso.abm.service;
 
-import com.alonso.abm.controller.UpdateTournament;
+import com.alonso.abm.domain.tournament.UpdateTournament;
 import com.alonso.abm.dao.BasicDAO;
-import com.alonso.abm.dao.TournamentInMemoryDAO;
-import com.alonso.abm.domain.match.Match;
-import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import com.alonso.abm.domain.tournament.TournamentBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
-import java.util.stream.Collectors;
 
 @Service
 public class TournamentService {
