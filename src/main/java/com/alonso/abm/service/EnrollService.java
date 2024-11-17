@@ -20,17 +20,23 @@ public class EnrollService {
     public boolean enrollment(long tournamentId, long playerId){
 
         Player player = this.playerService.getById(playerId);
-        if(player == null)
-            throw new RuntimeException("Player not found by id " + playerId);
 
         Tournament tournament = this.tournamentService.getById(tournamentId);
-
-        if(tournament == null)
-            throw new RuntimeException("Tournament not found by id " + playerId);
 
         if(tournament.getState() != TournamentState.OPEN)
             throw new RuntimeException("Enrollments to this tournament are closed!");
 
+        //TODO: should update player list in database
         return tournament.getPlayersEnrolled().add(player);
+    }
+
+    public boolean removeEnrollment(long tournamentId, long playerId){
+        Player player = this.playerService.getById(playerId);
+
+        Tournament tournament = this.tournamentService.getById(tournamentId);
+
+        tournament.getPlayersEnrolled().removeIf( p -> p.getId().equals(player.getId()));
+        //TODO: should update player list in database
+        return true;
     }
 }
