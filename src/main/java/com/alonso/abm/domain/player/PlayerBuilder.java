@@ -1,5 +1,7 @@
 package com.alonso.abm.domain.player;
 
+import com.alonso.abm.domain.player.exception.InvalidEmailException;
+
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 
@@ -19,7 +21,7 @@ public class PlayerBuilder {
         Pattern pattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
         Matcher matcher = pattern.matcher(this.email);
         if(!matcher.find())
-            throw new RuntimeException("Invalid email format!");
+            throw new InvalidEmailException();
     }
 
     public PlayerBuilder firstName(String firstName){

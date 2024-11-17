@@ -5,6 +5,7 @@ import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.player.PlayerBuilder;
 import com.alonso.abm.domain.player.UpdatePlayer;
+import com.alonso.abm.domain.player.exception.PlayerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,13 +45,14 @@ public class PlayerService {
 
     public boolean updatePlayer(UpdatePlayer updatePlayer){
         Player playerDb = this.getById(updatePlayer.id());
-        if(playerDb == null)
-            throw new RuntimeException("Player not found!");
-
+        this.dao.update(playerDb);
         return true;
     }
 
     public Player getById(Long id){
-        return this.dao.getById(id);
+        Player playerDb = this.dao.getById(id);
+        if(playerDb == null)
+            throw new PlayerNotFoundException();
+         return playerDb;
     }
 }

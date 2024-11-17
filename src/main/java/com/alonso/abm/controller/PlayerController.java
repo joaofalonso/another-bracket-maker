@@ -21,13 +21,8 @@ public class PlayerController {
     private PlayerService service;
     @GetMapping("/{id}")
     public ResponseEntity<?> getPlayer(@PathVariable long id){
-        try{
-            Player player = this.service.getById(id);
-            return ResponseEntity.ok(player);
-        }catch (Exception ex){
-            return ResponseEntity.internalServerError().body(ex);
-
-        }
+        Player player = this.service.getById(id);
+        return ResponseEntity.ok(player);
     }
 
     @PostMapping

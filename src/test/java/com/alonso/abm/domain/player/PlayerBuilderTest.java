@@ -1,5 +1,6 @@
 package com.alonso.abm.domain.player;
 
+import com.alonso.abm.domain.player.exception.InvalidEmailException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,9 +63,9 @@ public class PlayerBuilderTest {
     @Test
     public void createPlayerInvalidFormatEmailException(){
 
-        assertThrows(RuntimeException.class,
-                () -> this.builder.email("invalidemail@"),
-                "Invalid email format!");
+        assertThrows(InvalidEmailException.class,
+                () -> this.builder.email("invalidemail@")
+    );
 
     }
 

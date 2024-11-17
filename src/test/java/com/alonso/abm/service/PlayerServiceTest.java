@@ -2,6 +2,8 @@ package com.alonso.abm.service;
 
 import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
+import com.alonso.abm.domain.player.exception.InvalidEmailException;
+import com.alonso.abm.domain.player.exception.PlayerNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,6 @@ public class PlayerServiceTest {
 
     }
 
-
-
     @Test
     public void testSaveSuccess(){
 
@@ -64,6 +64,12 @@ public class PlayerServiceTest {
 
         assertEquals(testPlayer.getFirstName(), playerDb.getFirstName());
         assertEquals(testPlayer.getLastName(), playerDb.getLastName());
+    }
+
+    @Test
+    public void testGeyByIdPlayerNotFoundEx(){
+        assertThrows(PlayerNotFoundException.class,
+                () -> this.service.getById(99L));
     }
 
     @Test

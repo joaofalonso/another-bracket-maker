@@ -5,6 +5,8 @@ import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.player.PlayerBuilder;
 import com.alonso.abm.domain.player.UpdatePlayer;
+import com.alonso.abm.domain.player.exception.InvalidEmailException;
+import com.alonso.abm.domain.player.exception.PlayerNotFoundException;
 import com.alonso.abm.service.PlayerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,6 +60,14 @@ public class PlayerControllerTest {
 
     @Test
     @WithMockUser
+    public void testGetResponse404() throws Exception{
+        when(playerService.getById(99L)).thenThrow(PlayerNotFoundException.class);
+        this.mockMvc.perform(get("/player/99"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser
     public void testPostResponse201() throws Exception {
         CreatePlayer createPlayer = new CreatePlayer("teste",
                 "teste",
@@ -78,6 +88,30 @@ public class PlayerControllerTest {
                 .content(payload))
                 .andExpect(status().isCreated())
                 .andExpect(header().stringValues("location","/player/1"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testPostResponse400() throws Exception {
+        CreatePlayer createPlayer = new CreatePlayer("teste",
+                "teste",
+                "teste@test.", // not really necessary
+                "testNick",
+                LocalDate.now().minusYears(19));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        String payload = objectMapper.writeValueAsString(createPlayer);
+
+        when(playerService.save(createPlayer)).thenThrow(InvalidEmailException.class);
+        this.mockMvc.perform(post("/player")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.ALL)
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .content(payload))
+                .andExpect(status().isBadRequest());
+
     }
 
     @Test
