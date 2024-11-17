@@ -2,9 +2,11 @@ package com.alonso.abm.service;
 
 import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
+import com.alonso.abm.domain.player.exception.PlayerNotFoundException;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import com.alonso.abm.domain.tournament.TournamentState;
+import com.alonso.abm.domain.tournament.exception.TournamentNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,9 +68,9 @@ public class EnrollServiceTest {
     @Test
     public void testEnrollmentPlayerNotFound(){
         long invalidId = 99L;
-        assertThrows(RuntimeException.class,
-                () -> this.enrollService.enrollment(invalidId, tournament.getId()),
-                "Player not found by id " + Long.toString(invalidId));
+        assertThrows(PlayerNotFoundException.class,
+                () -> this.enrollService.enrollment (tournament.getId(), invalidId)
+                );
 
     }
 
@@ -76,9 +78,9 @@ public class EnrollServiceTest {
     public void testEnrollmentTournamentNotFound(){
 
         long invalidId = 99L;
-        assertThrows(RuntimeException.class,
-                () -> this.enrollService.enrollment(player.getId(), invalidId),
-                "Tournament not found by id " + Long.toString(invalidId));
+        assertThrows(TournamentNotFoundException.class,
+                () -> this.enrollService.enrollment(invalidId, player.getId())
+        );
     }
 
     @Test

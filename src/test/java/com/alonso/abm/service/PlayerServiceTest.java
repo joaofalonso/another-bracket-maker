@@ -72,11 +72,7 @@ public class PlayerServiceTest {
                 () -> this.service.getById(99L));
     }
 
-    @Test
-    public void testGetByIdNotFound(){
-        Player player = this.service.getById(99L);
-        assertNull(player);
-    }
+
 
     @Test
     public void testDeleteTrue(){
@@ -92,9 +88,9 @@ public class PlayerServiceTest {
     }
 
     @Test
-    public void testDeleteFalse(){
-        boolean isDeleted = this.service.delete(99L);
-        assertFalse(isDeleted);
+    public void testDeleteThrowsPlayerNotFoundException(){
+        assertThrows(PlayerNotFoundException.class,
+                () -> this.service.delete(99L));
     }
 
 }

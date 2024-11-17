@@ -135,7 +135,7 @@ public class PlayerControllerTest {
 
     @Test
     @WithMockUser
-    public void testDeleteResponse200() throws Exception {
+    public void testDeleteResponse204() throws Exception {
         when(this.playerService.delete(1L)).thenReturn(true);
         this.mockMvc.perform(delete("/player/1")
                 .with(SecurityMockMvcRequestPostProcessors.csrf()))

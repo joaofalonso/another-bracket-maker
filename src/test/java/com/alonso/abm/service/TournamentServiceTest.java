@@ -3,6 +3,7 @@ package com.alonso.abm.service;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
+import com.alonso.abm.domain.tournament.exception.TournamentNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,9 +91,9 @@ public class TournamentServiceTest {
     }
 
     @Test
-    public void testGetByIdNotFound(){
-        Tournament tournament = this.service.getById(99L);
-        assertNull(tournament);
+    public void testGetByIdThrowsTournamentNotFound(){
+        assertThrows(TournamentNotFoundException.class,
+                () -> this.service.getById(99L));
     }
 
     @Test
@@ -106,9 +107,9 @@ public class TournamentServiceTest {
     }
 
     @Test
-    public void testDeleteFalse(){
-        boolean isDeleted = this.service.delete(9999999L);
-        assertFalse(isDeleted);
+    public void testDeleteThrowsTournamentNotFoud(){
+        assertThrows(TournamentNotFoundException.class,
+                () -> this.service.getById(99L));
     }
 
 

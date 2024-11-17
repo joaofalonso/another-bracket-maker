@@ -5,6 +5,7 @@ import com.alonso.abm.dao.BasicDAO;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import com.alonso.abm.domain.tournament.TournamentBuilder;
+import com.alonso.abm.domain.tournament.exception.TournamentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,10 @@ public class TournamentService {
     }
 
     public Tournament getById(Long id){
-        return this.dao.getById(id);
+        Tournament tournament = this.dao.getById(id);
+        if(tournament == null)
+            throw  new TournamentNotFoundException();
+        return tournament;
     }
 
     public boolean delete(Long id){
