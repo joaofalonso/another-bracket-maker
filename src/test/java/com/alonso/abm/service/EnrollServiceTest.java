@@ -6,6 +6,7 @@ import com.alonso.abm.domain.player.exception.PlayerNotFoundException;
 import com.alonso.abm.domain.tournament.CreateTournament;
 import com.alonso.abm.domain.tournament.Tournament;
 import com.alonso.abm.domain.tournament.TournamentState;
+import com.alonso.abm.domain.tournament.exception.EnrollmentClosedException;
 import com.alonso.abm.domain.tournament.exception.TournamentNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,9 +86,9 @@ public class EnrollServiceTest {
 
     @Test
     public void testEnrollmentFailTournamentNotOpen(){
-        assertThrows(RuntimeException.class,
-                () -> this.enrollService.enrollment(player.getId(), closedTournament.getId()),
-                " Enrollments to this tournament are closed!");
+        assertThrows(EnrollmentClosedException.class,
+                () -> this.enrollService.enrollment(player.getId(), closedTournament.getId())
+        );
     }
 
 }
