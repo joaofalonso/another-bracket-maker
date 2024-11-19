@@ -1,15 +1,25 @@
 package com.alonso.abm.domain.player;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
 public class Player {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String nickName;
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
 

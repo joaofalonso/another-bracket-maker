@@ -1,22 +1,20 @@
 package com.alonso.abm.domain.match;
 
 import com.alonso.abm.domain.player.Player;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Match {
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
     private Player player1;
     private Player player2;
     private MatchState matchState;
@@ -38,6 +36,14 @@ public class Match {
         stand.setWinner(this.player1);
         stand.setPlayerId(this.player1.getId());
         this.matchStands.add(stand);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Player getPlayer1() {

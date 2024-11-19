@@ -1,8 +1,8 @@
 package com.alonso.abm.domain.tournament;
 
-
 import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.player.Player;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,13 +10,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 public class Tournament {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private LocalDateTime startDay;
+    @Column(nullable = false)
     private LocalDateTime finalDay;
     private final Set<Player> playersEnrolled;
+    @Column(nullable = false)
     private TournamentState state;
 
     public Tournament(){
