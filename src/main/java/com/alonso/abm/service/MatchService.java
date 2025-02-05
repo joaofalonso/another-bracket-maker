@@ -24,7 +24,7 @@ public class MatchService {
         if(matchStands.playerId().equals(match.getPlayer1().getId())
                 || matchStands.playerId().equals(match.getPlayer2().getId())){
             //TODO: Match stand reports logic
-            match.getMatchStands().add(new MatchStands());
+//            match.getMatchStands().add(new MatchStands());
         }
         else
             throw new IllegalArgumentException("The player reporting is not related to this match");

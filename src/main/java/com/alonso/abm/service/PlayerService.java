@@ -19,6 +19,9 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    public PlayerService(PlayerRepository playerRepository){
+        this.playerRepository = playerRepository;
+    }
     public Player save(CreatePlayer createPlayer){
 
         PlayerBuilder playerBuilder = new PlayerBuilder();

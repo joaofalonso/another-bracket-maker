@@ -6,11 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Match {
+public class Match implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,24 +19,24 @@ public class Match {
     private Player player1;
     private Player player2;
     private MatchState matchState;
-    private Set<MatchStands> matchStands;
+//    private Set<MatchStands> matchStands;
     private Long tournamentId;
 
     public Match(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
         this.matchState = MatchState.OPEN;
-        this.matchStands = new HashSet<MatchStands>();
+//        this.matchStands = new HashSet<MatchStands>();
     }
 
     public Match(Player player1){
         this.player1 = player1;
         this.matchState = MatchState.CLOSED;
-        this.matchStands = new HashSet<MatchStands>();
+//        this.matchStands = new HashSet<MatchStands>();
         MatchStands stand = new MatchStands();
         stand.setWinner(this.player1);
         stand.setPlayerId(this.player1.getId());
-        this.matchStands.add(stand);
+//        this.matchStands.add(stand);
     }
 
     public Long getId() {
@@ -62,13 +63,13 @@ public class Match {
         this.matchState = matchState;
     }
 
-    public Set<MatchStands> getMatchStands() {
-        return matchStands;
-    }
-
-    public void setMatchStands(Set<MatchStands> matchStands) {
-        this.matchStands = matchStands;
-    }
+//    public Set<MatchStands> getMatchStands() {
+//        return matchStands;
+//    }
+//
+//    public void setMatchStands(Set<MatchStands> matchStands) {
+//        this.matchStands = matchStands;
+//    }
 
     public Player getPlayer2() {
         return player2;

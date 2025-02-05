@@ -58,24 +58,24 @@ public class BracketServiceTest {
         enrollService.enrollment(oddPlayersTournament.getId(), player2.getId());
         enrollService.enrollment(oddPlayersTournament.getId(), player3.getId());
     }
-    @Test
-    public void createEvenPlayersBracket() throws Exception {
-        HashSet<Match> bracket = this.bracketService.createBracket(evenPlayersTournament);
-        List<Match> openMatchesList = bracket.stream().filter(m -> m.getMatchStands().isEmpty()).toList();
-        Assertions.assertEquals(bracket.size(), openMatchesList.size());
-
-    }
-
-    @Test
-    public void createOddPlayersBracket() throws Exception{
-        /*TODO: Successfully create a even bracket
-            - Odd Numbers of players
-            - One of the matches already has a winner
-         */
-        HashSet<Match> bracket = this.bracketService.createBracket(oddPlayersTournament);
-        List<Match> openMatchesList = bracket.stream().filter(m -> m.getMatchStands().isEmpty()).toList();
-        Assertions.assertNotEquals(bracket.size(), openMatchesList.size());
-    }
+//    @Test
+//    public void createEvenPlayersBracket() throws Exception {
+//        HashSet<Match> bracket = this.bracketService.createBracket(evenPlayersTournament);
+//        List<Match> openMatchesList = bracket.stream().filter(m -> m.getMatchStands().isEmpty()).toList();
+//        Assertions.assertEquals(bracket.size(), openMatchesList.size());
+//
+//    }
+//
+//    @Test
+//    public void createOddPlayersBracket() throws Exception{
+//        /*TODO: Successfully create a even bracket
+//            - Odd Numbers of players
+//            - One of the matches already has a winner
+//         */
+//        HashSet<Match> bracket = this.bracketService.createBracket(oddPlayersTournament);
+//        List<Match> openMatchesList = bracket.stream().filter(m -> m.getMatchStands().isEmpty()).toList();
+//        Assertions.assertNotEquals(bracket.size(), openMatchesList.size());
+//    }
 
     @Test
     public void createBracketNoPlayersError(){

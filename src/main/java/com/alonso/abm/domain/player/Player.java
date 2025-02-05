@@ -2,11 +2,12 @@ package com.alonso.abm.domain.player;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class Player {
+public class Player implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

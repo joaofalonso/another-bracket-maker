@@ -4,6 +4,7 @@ import com.alonso.abm.domain.match.Match;
 import com.alonso.abm.domain.player.Player;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Tournament {
+public class Tournament implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +23,13 @@ public class Tournament {
     private LocalDateTime startDay;
     @Column(nullable = false)
     private LocalDateTime finalDay;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "player_tournament",
+            joinColumns = { @JoinColumn(name = "tournament_id") },
+            inverseJoinColumns = { @JoinColumn(name = "player_id") }
+    )
     private final Set<Player> playersEnrolled;
     @Column(nullable = false)
     private TournamentState state;

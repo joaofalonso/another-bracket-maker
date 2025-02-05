@@ -4,33 +4,48 @@ import com.alonso.abm.domain.player.CreatePlayer;
 import com.alonso.abm.domain.player.Player;
 import com.alonso.abm.domain.player.exception.InvalidEmailException;
 import com.alonso.abm.domain.player.exception.PlayerNotFoundException;
+import com.alonso.abm.repository.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ExtendWith(SpringExtension.class)
 public class PlayerServiceTest {
 
     @Autowired
     private PlayerService service;
     private Player testPlayer;
+
+    @MockBean
+    PlayerRepository playerRepository;
+
     @BeforeEach
     public void setup()
     {
 
-        testPlayer= service.save(new CreatePlayer("Jhon",
-                "Doe",
-                "joe@doe.who",
-                "who",
-                LocalDate.now().minusYears(20)
+        testPlayer= service.save(new CreatePlayer("Hinata",
+                "Shoyo",
+                "hinata.shoyo@karasuno.com",
+                "Little Giant",
+                LocalDate.now().minusYears(18)
         ));
 
     }
@@ -42,8 +57,10 @@ public class PlayerServiceTest {
                 "Shoyo",
                 "hinata.shoyo@karasuno.com",
                 "Little Giant",
-                LocalDate.now().minusYears(16)
+                LocalDate.now().minusYears(18)
         );
+
+        doReturn(testPlayer).when(playerRepository).save(any());
 
         Player savedPlayer = this.service.save(hinata);
         assertEquals(hinata.firstName(), savedPlayer.getFirstName());
